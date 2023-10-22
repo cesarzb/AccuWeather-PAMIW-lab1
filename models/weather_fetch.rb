@@ -2,6 +2,12 @@ require 'json'
 require 'net/http'
 require 'uri'
 require 'open-uri'
+require './models/city'
+require './models/country'
+require './models/administrative_area'
+require './models/weather'
+require './models/hourly_weather'
+require './models/daily_forecast'
 
 class AccuWeatherService
   BASE_URL = 'http://dataservice.accuweather.com'
@@ -14,7 +20,7 @@ class AccuWeatherService
 
   def initialize
     # Load API key and language settings from environment variables or a .env file
-    @api_key = "H8KwwHFutxSAT101ONeIOfJNqbrdGpkM"
+    @api_key = "DpNF5q9QMia63SaV0lh6HPZCbJGNMYnW"
     @language = "pl"
   end
 
@@ -24,6 +30,11 @@ class AccuWeatherService
     response = Net::HTTP.get_response(uri)
     json = response.body
     cities = JSON.parse(json)
+    cities.map! do |c|
+      city = City.new
+      city.initialize_from_response(c)
+      city
+    end
     cities
   end
 
@@ -32,7 +43,9 @@ class AccuWeatherService
     response = Net::HTTP.get_response(uri)
     json = response.body
     weathers = JSON.parse(json)
-    weathers.first
+    weather = Weather.new
+    weather.initialize_from_response(weathers.first)
+    weather
   end
 
   def get_one_day_forecast(city_key)
@@ -40,7 +53,9 @@ class AccuWeatherService
     response = Net::HTTP.get_response(uri)
     json = response.body
     weathers = JSON.parse(json)
-    weathers["DailyForecasts"].first
+    forecast = DailyForecast.new
+    forecast.initialize_from_response(weathers["DailyForecasts"].first)
+    forecast
   end
 
   def get_one_hour_forecast(city_key)
@@ -48,7 +63,9 @@ class AccuWeatherService
     response = Net::HTTP.get_response(uri)
     json = response.body
     weathers = JSON.parse(json)
-    weathers.first
+    weather = HourlyWeather.new
+    weather.initialize_from_response(weathers.first)
+    weather
   end
 
   def get_twelve_hours_forecast(city_key)
@@ -56,6 +73,11 @@ class AccuWeatherService
     response = Net::HTTP.get_response(uri)
     json = response.body
     weathers = JSON.parse(json)
+    weathers.map! do |w|
+      weather = HourlyWeather.new
+      weather.initialize_from_response(w)
+      weather
+    end
     weathers
   end
 
@@ -64,6 +86,13 @@ class AccuWeatherService
     response = Net::HTTP.get_response(uri)
     json = response.body
     weathers = JSON.parse(json)
-    weathers['DailyForecasts']
+    daily_forecasts = []
+    weathers["DailyForecasts"].each do |fr|
+      daily_forecast = DailyForecast.new
+      daily_forecast.initialize_from_response(fr)
+
+      daily_forecasts << daily_forecast
+    end
+    daily_forecasts
   end
 end
