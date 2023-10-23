@@ -8,7 +8,6 @@ module ViewHelperModule
   end
 
   def update_selected
-    @selected_option = @options_list.get(@options_list.curselection[0])
-    puts "selection updated to: #{@selected_option}"
+    @selected_option = @view_model.update_selected_option(@selected_option, @options_list)
   end
 end

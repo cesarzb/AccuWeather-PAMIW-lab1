@@ -1,6 +1,6 @@
-require './models/daily_temperature'
-require './models/day'
-require './models/night'
+require './models/domains/daily_temperature'
+require './models/domains/day'
+require './models/domains/night'
 
 class DailyForecast
   attr_accessor :temperature, :day, :night

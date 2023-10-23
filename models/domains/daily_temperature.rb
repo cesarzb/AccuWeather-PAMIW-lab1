@@ -1,5 +1,5 @@
-require './models/minimum'
-require './models/maximum'
+require './models/domains/minimum'
+require './models/domains/maximum'
 
 class DailyTemperature
   attr_accessor :minimum, :maximum

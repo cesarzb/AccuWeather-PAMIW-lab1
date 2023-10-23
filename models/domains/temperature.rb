@@ -1,5 +1,5 @@
-require './models/metric'
-require './models/imperial'
+require './models/domains/metric'
+require './models/domains/imperial'
 
 class Temperature
   attr_accessor :metric, :imperial

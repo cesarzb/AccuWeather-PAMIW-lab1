@@ -1,5 +1,5 @@
-require './models/country'
-require './models/administrative_area'
+require './models/domains/country'
+require './models/domains/administrative_area'
 
 class City
   attr_accessor :version, :key, :type, :rank, :localized_name,

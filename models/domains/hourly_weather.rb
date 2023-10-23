@@ -1,4 +1,4 @@
-require './models/hourly_temperature'
+require './models/domains/hourly_temperature'
 
 class HourlyWeather
   attr_accessor :icon_phrase, :temperature

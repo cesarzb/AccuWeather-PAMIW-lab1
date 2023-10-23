@@ -30,6 +30,11 @@ class ViewModel
     end
   end
 
+  def update_selected_option(selected_option, options_list)
+    selected_option = options_list.get(options_list.curselection[0])
+      puts "selection updated to: #{selected_option}"
+    selected_option
+  end
   def get_weather(selected_option, city_list, weather_label)
     puts "selected option: #{selected_option}"
     selected_city = city_list.get(city_list.curselection[0])
@@ -37,7 +42,7 @@ class ViewModel
     option_number = selected_option[/(\d+):/, 1]
     puts "Option number: #{option_number}"
     # weather_label.insert('1.0', '')
-    weather_label.configure(text: '')
+    weather_label.delete('1.0', 'end')
     label = ''
     case option_number.to_i
       when 1

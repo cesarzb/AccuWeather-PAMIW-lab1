@@ -2,12 +2,12 @@ require 'json'
 require 'net/http'
 require 'uri'
 require 'open-uri'
-require './models/city'
-require './models/country'
-require './models/administrative_area'
-require './models/weather'
-require './models/hourly_weather'
-require './models/daily_forecast'
+require './models/domains/city'
+require './models/domains/country'
+require './models/domains/administrative_area'
+require './models/domains/weather'
+require './models/domains/hourly_weather'
+require './models/domains/daily_forecast'
 
 class AccuWeatherService
   BASE_URL = 'http://dataservice.accuweather.com'
@@ -20,7 +20,7 @@ class AccuWeatherService
 
   def initialize
     # Load API key and language settings from environment variables or a .env file
-    @api_key = "DpNF5q9QMia63SaV0lh6HPZCbJGNMYnW"
+    @api_key = "ovpPA8IJ8N5kosjOKZ2GhroCo2IhSw74"
     @language = "pl"
   end
 

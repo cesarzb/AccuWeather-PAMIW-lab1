@@ -1,4 +1,4 @@
-require './models/temperature.rb'
+require './models/domains/temperature.rb'
 
 class Weather
   attr_accessor :local_observation_date_time, :epoch_time, :weather_text,
